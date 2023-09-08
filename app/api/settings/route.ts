@@ -26,7 +26,7 @@ export async function POST (
                 name: name
             }
         });
-
+        return NextResponse.json(updatedUser);
     } catch (error: any) {
         console.log (error, 'Fehler in Einstellungen');
         return new NextResponse('Interner Fehler ', { status : 500})

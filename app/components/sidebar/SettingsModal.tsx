@@ -3,9 +3,9 @@
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
-import { useState } from "react";
+import React , { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Modal from "../Modal";
 import Input from "../inputs/Input";
 import { Image } from "next/dist/client/image-component";
@@ -19,7 +19,6 @@ interface SettingsModalProps {
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
-
     isOpen,
     onClose,
     currentUser
@@ -28,7 +27,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FieldValues>({
+    const { register, handleSubmit, setValue, watch, formState: { errors, } } = useForm<FieldValues>({
         defaultValues: {
             name: currentUser?.name,
             image: currentUser?.image
@@ -45,12 +44,13 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true)
+
         axios.post('/api/settings', data)
         .then(() => {
             router.refresh();
             onClose();
         })
-        .catch(() => toast.error('Etwas ist schief gelaufen, versuche es nochmal'))
+        .catch(() =>  toast.error('Etwas ist schiefgelaufen'))
         .finally(() => setIsLoading(false))
     }
 
