@@ -76,7 +76,7 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
                 Erstelle einen Gruppenchat
               </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              Erstelle eine Konversation mit mehr als 2 Nutzern
+              Erstelle eine Konversation mit mehr als 2 Mitgliedern
             </p>
             <div className="mt-10 flex flex-col gap-y-8">
               <Input

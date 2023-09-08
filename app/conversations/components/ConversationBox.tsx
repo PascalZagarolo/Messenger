@@ -55,14 +55,14 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 
   const lastMessageText = useMemo(() => {
     if (lastMessage?.image) {
-      return 'Hat ein Bild gesendet';
+      return 'hat ein Bild gesendet';
     }
 
     if (lastMessage?.body) {
       return lastMessage?.body
     }
 
-    return 'Hat eine Konversation begonnen';
+    return 'hat eine Konversation gestartet';
   }, [lastMessage]);
 
   return ( 
@@ -103,7 +103,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                   font-light
                 "
               >
-                {format(new Date(lastMessage.createdAt), 'hh:mm')}
+                {format(new Date(lastMessage.createdAt), 'hh : mm')}
               </p>
             )}
           </div>

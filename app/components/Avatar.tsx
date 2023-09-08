@@ -52,8 +52,7 @@ const Avatar: React.FC<AvatarProps> = ({
                 md:w-3"/>
                 )}
 
-            
-
+          
         </div>
 
                 

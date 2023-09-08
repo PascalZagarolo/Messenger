@@ -8,13 +8,11 @@ import { MdOutlineGroupAdd } from 'react-icons/md';
 import clsx from "clsx";
 import { find, uniq } from 'lodash';
 
-
+import useConversations from "@/app/hooks/useConversations";
 import { pusherClient } from "@/app/libs/pusher";
-
+import GroupChatModal from "./GroupChatModal";
 import ConversationBox from "./ConversationBox";
 import { FullConversationType } from "@/app/types";
-import GroupChatModal from './GroupChatModal';
-import userConversations from '@/app/hooks/useConversations';
 
 interface ConversationListProps {
   initialItems: FullConversationType[];
@@ -32,7 +30,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
   const router = useRouter();
   const session = useSession();
 
-  const { conversationId, isOpen } = userConversations();
+  const { conversationId, isOpen } = useConversations();
 
   const pusherKey = useMemo(() => {
     return session.data?.user?.email
@@ -60,11 +58,11 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
     const newHandler = (conversation: FullConversationType) => {
       setItems((current) => {
-        if (find(current, { id: conversation.id }) || find(initialItems, { id: conversation.id })) {
+        if (find(current, { id: conversation.id })) {
           return current;
         }
-    
-        return [conversation, ...current];
+
+        return [conversation, ...current]
       });
     }
 
@@ -73,8 +71,6 @@ const ConversationList: React.FC<ConversationListProps> = ({
         return [...current.filter((convo) => convo.id !== conversation.id)]
       });
     }
-
-    
 
     pusherClient.bind('conversation:update', updateHandler)
     pusherClient.bind('conversation:new', newHandler)

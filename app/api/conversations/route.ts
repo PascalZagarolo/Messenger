@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { pusherServer } from "@/app/libs/pusher";
 
-
 export async function POST(
   request: Request,
 ) {
@@ -19,11 +18,11 @@ export async function POST(
     } = body;
 
     if (!currentUser?.id || !currentUser?.email) {
-      return new NextResponse('Nicht autorisierte Anfrage', { status: 400 });
+      return new NextResponse('Nicht autorisiert', { status: 400 });
     }
 
     if (isGroup && (!members || members.length < 2 || !name)) {
-      return new NextResponse('Ungültige Pakete verschickt', { status: 400 });
+      return new NextResponse('Ungültige Daten übergeben', { status: 400 });
     }
 
     if (isGroup) {
@@ -47,12 +46,12 @@ export async function POST(
         }
       });
 
-       
+       // Update all connections with new conversation
       newConversation.users.forEach((user) => {
-        if(user.email) {
-          pusherServer.trigger(user.email, 'conversation:new', newConversation)
+        if (user.email) {
+          pusherServer.trigger(user.email, 'conversation:new', newConversation);
         }
-      })
+      });
 
       return NextResponse.json(newConversation);
     }
@@ -98,8 +97,9 @@ export async function POST(
       }
     });
 
+    // Update all connections with new conversation
     newConversation.users.map((user) => {
-      if(user.email) {
+      if (user.email) {
         pusherServer.trigger(user.email, 'conversation:new', newConversation);
       }
     });

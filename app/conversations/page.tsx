@@ -2,22 +2,20 @@
 
 import clsx from "clsx";
 
-
-import EmptyState from "../components/EmptyState";
 import useConversations from "../hooks/useConversations";
+import EmptyState from "../components/EmptyState";
 
 const Home = () => {
-    const { isOpen } = useConversations();
+  const { isOpen } = useConversations();
 
-    return (
-        <div
-        className={clsx(`
-        lg:pl-80 h-full lg:block`,
-        isOpen ? 'block' : 'hidden')}
-        >
-            <EmptyState />
-        </div>
-    )
-};
+  return (
+    <div className={clsx(
+      'lg:pl-80 h-full lg:block', 
+      isOpen ? 'block' : 'hidden'
+    )}>
+      <EmptyState />
+    </div>
+  )
+}
 
 export default Home;

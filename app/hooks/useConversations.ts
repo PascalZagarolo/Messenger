@@ -1,25 +1,23 @@
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 
-const useConversations = () =>{
-    const params = useParams()
+const useConversation = () => {
+  const params = useParams();
 
+  const conversationId = useMemo(() => {
+    if (!params?.conversationId) {
+      return '';
+    }
 
-    //useMemo => saves the conversationIds in the cache, performance wise
-    const conversationId = useMemo(() => {
-        if(!params?.conversationId) {
-            return '';
-        }
+    return params.conversationId as string;
+  }, [params?.conversationId]);
 
-        return params.conversationId as string;
-    }, [params?.conversationid]);
+  const isOpen = useMemo(() => !!conversationId, [conversationId]);
 
-    const isOpen = useMemo(() => !!conversationId, [conversationId])
-
-    return useMemo(() => ({
-        isOpen,
-        conversationId
-    }), [isOpen, conversationId])
+  return useMemo(() => ({
+    isOpen,
+    conversationId
+  }), [isOpen, conversationId]);
 };
 
-export default useConversations;
+export default useConversation;
