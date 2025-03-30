@@ -1,6 +1,7 @@
 💬 Messaging App – Simple Chat Application
 
 A lightweight and responsive real-time chat application built with modern web technologies for seamless communication.
+(Google Login currently down)
 🚀 Tech Stack
 
     Frontend: React, Tailwind CSS, Redux
